@@ -10,30 +10,30 @@ namespace Console_POS
     {
         static string[] items =
         {
-            "Apple Candy",
-            "Dry Banana",
-            "Pancake",
-            "Cheesee Burger",
-            "Pizza",
-            "Strawberry Cream",
-            "Iced Coffee",
+            "Phoenix Burger",
+            "Cosmic Fries",
+            "Mystic Elixir",
+            "Moon Salad",
+            "Inferno Pizza",
+            "Aurora Cream",
+            "Shadow Coffee",
             "Blossom Tea",
-            "Soda Water",
-            "Sour Candy"
+            "Crystal Water",
+            "Solar Nectar"
         };
 
         static decimal[] prices =
         {
-            100,
-            30,
-            34,
-            20,
-            300,
-            50,
+            149,
+            89,
+            55,
+            120,
+            199,
+            110,
             95,
             85,
             30,
-            20
+            70
         };
 
         // Cart to hold selected items
@@ -54,6 +54,7 @@ namespace Console_POS
                         break;
                     case 2:
                         // Remove Item
+                        RemoveItemFromCart();
                         break;
 
                     case 3:
@@ -168,6 +169,36 @@ namespace Console_POS
             Console.ReadKey();
 
         }
+
+        static void RemoveItemFromCart()
+        {
+            Console.Clear();
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine("         REMOVE ITEM");
+            Console.WriteLine("-------------------------------");
+
+            for (int i = 0; i < cartItems.Length; i++)
+            {
+                if (!string.IsNullOrEmpty(cartItems[i]))
+                    Console.WriteLine($" [{i + 1}] {cartItems[i],-15} x{cartQuantities[i],-5}");
+            }
+
+            Console.WriteLine("-------------------------------");
+
+            Console.Write("Choose item to remove: ");
+            int choice;
+
+            if (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > cartItems.Length || string.IsNullOrEmpty(cartItems[choice - 1]))
+            {
+                Console.WriteLine("Invalid choice. Please try again.");
+                return;
+            }
+
+            cartItems[choice - 1] = null;
+            cartQuantities[choice - 1] = 0;
+            Console.WriteLine("Item removed from the cart.");
+        }
+
 
     }
 }
